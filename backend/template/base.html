@@ -1,0 +1,75 @@
+{% macro head(title, browser=True, caller=None) -%}
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=940, user-scalable=no,width=device-width,initial-scale=1.0">
+	{% if browser -%}
+		<link rel="stylesheet" href="{{ config.STATIC_URL }}/all.css" type="text/css">
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow:400,700|PT+Serif&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+	{% endif -%}
+	{% if caller -%}
+		{{ caller() -}}
+	{% endif -%}
+</head>
+{% endmacro -%}
+
+{% macro header() -%}
+<div class="all_wrapper">
+	<section id="header">
+		<div class="cpt_logo">
+			<a href="/"><img src="{{ config.STATIC_URL }}/logo.png" alt="Эльзас декор"></a>
+		</div>
+	</section>
+	<section id="content_header">
+		<div class="cpt_category_tree">
+			<ul>
+				<li><a href="/blog/o-nas/">О нас</a></li>
+				<li><a href="/category/0">Каталог</a></li>
+				<li><a href="/blog/dostavka-i-oplata/">Доставка и оплата</a></li>
+				<li><a href="/blog/">Блог</a></li>
+				<li><a href="/blog/kontakty/">Контакты</a></li>
+			</ul>
+		</div>
+		<div class="vcard">
+			<div id="phone_top" class="tel">+7 (000) 000-0000</div>
+		</div>
+
+		<div class="cpt_shopping_cart_info">
+			<p class="cart_head"><a class="cart_li_checkout" href="/cart/">Корзина</a> <a class="cart_li" href="/cart/">(0)</a></p>
+		</div>
+
+		<div class="cpt_product_search">
+			<form action="/search/" method="get" id="searchform" class="search">
+				<input type="text" id="searchstring" name="searchstring" placeholder="поиск по сайту" title="Чего душа пожелает..." value="" class="text entry_form ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+				<input type="submit" class="submit" name="Submit" value="">
+			</form>
+		</div>
+	</section>
+{% endmacro -%}
+
+{% macro footer() -%}
+	<div class="footer_container">
+		<div class="footer_wrapper">
+			<section id="footer">
+				<div id="footer_left">
+					<div id="phone_footer">+7 (000) 000-0000</div>
+				</div>
+				<div id="footer_right">
+					<span>//SOCIAL MEDIA LINKS//</span>
+				</div>
+			</section>
+		</div>
+	</div>
+	<script src="http://yandex.st/jquery/2.1.1/jquery.min.js"></script>
+	<script async src="{{ config.STATIC_URL }}/all.js"></script>
+	<script type="text/javascript">
+	$(function() { roundElems(); });
+	</script>
+	{{ yandex_metrica(config.live().get('yandex-metrica-id')) -}}
+</div><!-- end .all_wrapper -->
+{% endmacro -%}
+
+{% macro yandex_metrica(id) -%}
+<script>'TODO'</script>
+{% endmacro -%}

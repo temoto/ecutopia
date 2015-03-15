@@ -1,0 +1,3 @@
+routes = (
+    ('/', 'common.index.index'),
+)

@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+backend/bin/run & backend_pid=$!
+frontend/bin/run & frontend_pid=$!
+
+wait $frontend_pid
+wait $backend_pid

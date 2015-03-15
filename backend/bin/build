@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+backend_dir=$(dirname $bin_dir)
+tmp_dir=$backend_dir/tmp
+source $bin_dir/activate
+
+if [ ! -d $virtualenv_dir ]; then
+	if [ ! -r $tmp_dir/virtualenv-1.11rc4.tar.gz ]; then
+		curl -L -o $tmp_dir/virtualenv-1.11rc4.tar.gz 'https://github.com/pypa/virtualenv/archive/1.11rc4.tar.gz'
+	fi
+	tar -xzf $backend_dir/lib/virtualenv-1.11rc4.tar.gz -C $tmp_dir
+	python3 $tmp_dir/virtualenv-1.11rc4/virtualenv.py --python=python3 --quiet $virtualenv_dir
+	. $virtualenv_dir/bin/activate
+fi
+
+echo 'Check Python packages'
+python $bin_dir/python_check_version.py pip 1.5 || pip install --quiet 'pip>=1.5'
+python $bin_dir/python_check_version.py setuptools 3.4 || pip install --quiet 'setuptools>=3.4'
+# FIXME
+# python $bin_dir/python_check_version.py wheel 0.23.0 || pip install --quiet 'wheel>=0.23.0'
+# pip wheel \
+# 	--download-cache=tmp/pip-cache/ \
+# 	--wheel-dir=tmp/pip-wheel/ \
+# 	--quiet \
+# 	-r $backend_dir/requirements.txt
+pip install \
+	--download-cache=tmp/pip-cache/ \
+	--find-links=file://tmp/pip-wheel/ \
+	--quiet \
+	--use-wheel \
+	-r $backend_dir/requirements.txt
+
+echo 'sql_to_model'
+python -m ecutopia.service.sql_to_model --output=files --quiet

@@ -1,0 +1,11 @@
+Flask-Cache==0.13.1
+Flask==0.10.1
+ipdb==0.8
+logbook==0.7.0
+psycopg2==2.5.3
+pytest-instafail==0.2.0
+pytest-random==0.02
+pytest-timeout==0.3
+pytest-xdist==1.10
+pytest==2.5.2
+python-sql==0.3

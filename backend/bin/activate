@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+project_dir=$(readlink -f ${bin_dir}/../..)
+backend_dir=${project_dir}/backend
+test -d ${backend_dir}
+tmp_dir=$backend_dir/tmp
+mkdir -p $tmp_dir
+
+virtualenv_dir=${backend_dir}/venv
+
+export PYTHONDONTWRITEBYTECODE=1
+if [ -d ${virtualenv_dir} ]; then
+	. ${virtualenv_dir}/bin/activate || {
+		echo "Error: could not activate virtualenv ${virtualenv_dir}" >&2
+		echo "You can try rm -rf ${virtualenv_dir} and retry" >&2
+		exit 1
+	}
+else
+	echo "Warning: virtualenv directory ${virtualenv_dir} does not exist" >&2
+fi
+export PYTHONPATH=${backend_dir}/src

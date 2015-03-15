@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+source ${bin_dir}/activate
+
+python -m ecutopia.service.migrate $@

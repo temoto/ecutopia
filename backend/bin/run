@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+${bin_dir}/build
+source ${bin_dir}/activate
+
+if [ $# -eq 0 ]; then
+	python -m ecutopia.service.migrate --create-db
+	python -m ecutopia.service.server
+else
+	cmd=$1
+	shift
+	python -m ecutopia.service.${cmd} $@
+fi

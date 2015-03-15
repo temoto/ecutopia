@@ -1,0 +1,2 @@
+main = () =>
+	alert 'foo'

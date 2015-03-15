@@ -1,0 +1,58 @@
+{% import 'base.html' as base -%}
+
+{% call base.head() -%}
+<title>{{ request.page_title }}</title>
+{# <meta name="description" content="bla bla"> -#}
+<base href="{{ url_for('.index', _external=True) }}">
+{% endcall -%}
+
+{{ base.header() }}
+
+{% macro category(name, url, image_url) -%}
+<div class="block">
+	<a href="{{ url }}">
+		<img class="block_image" src="{{ image_url }}" alt="{{ name }}">
+		<p class="block_link">{{ name }}</p>
+	</a>
+</div>
+{% endmacro -%}
+
+<section id="content_middle">
+	<section id="maincontent">
+		<div class="cpt_maincontent">
+			<div class="cpt_root_categories">
+				<div class="blocks_container">
+					{{ category('Аксессуары', '/category/aksessuary/', config.STATIC_URL + '/cat-aksaksessuary.jpg') }}
+					{{ category('Вазы, кашпо', '/category/vazy-kashpo/', config.STATIC_URL + '/cat-vazy-kashpo.jpg') }}
+					{{ category('Вешалки, крючки', '/category/veshalki-i-krjuchki/', config.STATIC_URL + '/cat-veshalki-i-krjuchki.jpg') }}
+					{{ category('Все для кухни', '/category/posuda/', config.STATIC_URL + '/cat-posuda.jpg') }}
+					{{ category('Декор для сада', '/category/dekor-dlja-sada/', config.STATIC_URL + '/cat-dekor-dlja-sada.jpg') }}
+					{{ category('Декоративные клетки', '/category/dekorativnye-kletki/', config.STATIC_URL + '/cat-dekorativnye-kletki.jpg') }}
+					{{ category('Для оптовиков и дилеров', '/category/dlja-optovikov-i-dilerov/', config.STATIC_URL + '/cat-dlja-optovikov-i-dilerov.jpg') }}
+					{{ category('Зеркала', '/category/zerkala/', config.STATIC_URL + '/cat-zerkala.jpg') }}
+					{{ category('Интерьерные игрушки', '/category/interernye-igrushki/', config.STATIC_URL + '/cat-interernye-igrushki.jpg') }}
+					{{ category('Мебель в наличии', '/category/mebel/', config.STATIC_URL + '/cat-mebel.jpg') }}
+					{{ category('Настенные украшения', '/category/nastennye-ukrashenija/', config.STATIC_URL + '/cat-nastennye-ukrashenija.jpg') }}
+					{{ category('Подсвечники, фонари', '/category/fonari-podsvechniki/', config.STATIC_URL + '/cat-fonari-podsvechniki.jpg') }}
+					{{ category('Подставки, держатели', '/category/podstavki-derzhateli/', config.STATIC_URL + '/cat-podstavki-derzhateli.jpg') }}
+					{{ category('Рамки для фото', '/category/fotoramki/', config.STATIC_URL + '/cat-fotoramki.jpg') }}
+					{{ category('Текстиль', '/category/tekstil/', config.STATIC_URL + '/cat-tekstil.jpg') }}
+					{{ category('Фигурки, подвески', '/category/figurki/', config.STATIC_URL + '/cat-figurki.jpg') }}
+				</div>
+			</div>
+
+			<div class="static_slider" style="margin-left:0px;">
+				<a href="/category/new/" class="static_url"></a>
+				<div class="static_cont" style="#837670"><h4>Новинки</h4></div>
+				<img class="static_img" src="/cat-new.jpg" alt="Новинки">
+			</div>
+			<div class="static_slider">
+				<a href="/category/akcii/" class="static_url"></a>
+				<div class="static_cont" style="color:#82756f;"><h4>Акции</h4></div>
+				<img class="static_img" src="/cat-akcii.jpg" alt="Акции">
+			</div>
+		</div>
+	</section>
+</section>
+
+{{ base.footer() }}

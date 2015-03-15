@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+backend_dir=$(dirname $bin_dir)
+$bin_dir/build
+source $bin_dir/activate
+
+cd ${backend_dir}
+
+pytest_flags=(
+	--color auto
+	--instafail
+	--random
+	--strict
+	--verbose
+)
+if [ "$1" = "debug" ]; then
+	pytest_flags+=(
+		--capture=no
+	)
+	shift
+else
+	pytest_flags+=(
+		--boxed
+		--dist=load --tx=4*popen
+		--timeout 5
+	)
+fi
+pytest_flags="${pytest_flags[@]} $backend_dir/src $@"
+echo py.test $pytest_flags
+py.test $pytest_flags

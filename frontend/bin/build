@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+project_dir=$(readlink -f ${bin_dir}/../..)
+test -d ${project_dir}/frontend
+
+cd ${project_dir}/frontend
+
+npm install
+grunt build

@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+bin_path=$(readlink -f $0)
+bin_dir=$(dirname $bin_path)
+source ${bin_dir}/activate
+
+garbage=(
+	'frontend/build/'
+	'frontend/node_modules/'
+)
+
+rm -rf ${garbage[@]}
