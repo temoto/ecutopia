@@ -1,0 +1,14 @@
+*.a
+*.log
+*.o
+*.pyc
+*.so
+*.sublime*
+.DS_Store
+__pycache__/
+backend/config_local.py
+backend/src/ecutopia/generated/
+backend/venv/
+frontend/build/
+frontend/node_modules/
+tmp/
